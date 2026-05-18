@@ -6,6 +6,19 @@ import java.util.Scanner;
 
 public class Program {
     public static void main(String[] args) {
+        List<Workout> workouts = getWorkouts();
+        printWorkouts(workouts);
+
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Enter workout name: ");
+        String workoutName = scan.nextLine();
+
+        List<Workout> matchingWorkouts = getMatchingWorkouts(workouts, workoutName);
+        System.out.println(calculateAverageCaloriesBurned(matchingWorkouts));
+
+    }
+
+    private static List<Workout> getWorkouts() {
         List<Workout> workouts = new ArrayList<>();
 
         workouts.add(new Workout("Running", "Monday", 450));
@@ -18,12 +31,20 @@ public class Program {
         workouts.add(new Workout("Yoga", "Saturday", 200));
         workouts.add(new Workout("Cycling", "Sunday", 750));
         workouts.add(new Workout("Running", "Sunday", 350));
+        return workouts;
+    }
+    private static void printWorkouts(List<Workout> workouts){
+        for(Workout workout : workouts){
+            System.out.println(workout);
+        }
+    }
 
-        Scanner scan = new Scanner(System.in);
-        System.out.println("Enter workout name: ");
-        String workoutName = scan.nextLine();
-
-        List<Workout> matchingWorkouts = getMatchingWorkouts(workouts, workoutName);
+    private static double calculateAverageCaloriesBurned(List<Workout> workouts) {
+        int totalBurnedCalories = 0;
+        for(Workout workout : workouts){
+            totalBurnedCalories += workout.getCaloriesBurned();
+        }
+        return (double) totalBurnedCalories / workouts.size();
     }
 
     private static List<Workout> getMatchingWorkouts(List<Workout> workouts, String workoutName) {

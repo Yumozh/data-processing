@@ -22,4 +22,14 @@ public class Workout {
     public int getCaloriesBurned() {
         return caloriesBurned;
     }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Workout{");
+        sb.append("workout name='").append(exerciseType).append('\'');
+        sb.append(", day of week='").append(dayOfWeek).append('\'');
+        sb.append(", calories burned=").append(caloriesBurned);
+        sb.append('}');
+        return sb.toString();
+    }
 }
