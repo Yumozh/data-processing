@@ -14,6 +14,7 @@ public class Program {
         List<Workout> matchingWorkouts = getMatchingWorkouts(workouts, workoutName);
         System.out.println("The average calories burned is: " + calculateAverageCaloriesBurned(matchingWorkouts));
         System.out.println("The highest number of calories is: " + highestCalories(matchingWorkouts));
+        System.out.println("The lowest number of calories is: " + lowestCalories(matchingWorkouts));
 
     }
 
@@ -35,6 +36,13 @@ public class Program {
 //                .map(Workout::getCaloriesBurned)
 //                .orElse(0);
 
+    }
+
+    private static int lowestCalories(List<Workout> workouts){
+        return workouts.stream()
+                .map(Workout::getCaloriesBurned)
+                .min(Integer::compare)
+                .orElse(0);
     }
 
     private static void printWorkouts(List<Workout> workouts){
