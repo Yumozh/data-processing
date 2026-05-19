@@ -1,8 +1,6 @@
 package com.pluralsight.loops;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Program {
     public static void main(String[] args) {
@@ -20,14 +18,23 @@ public class Program {
     }
 
     private static int highestCalories(List<Workout> workouts) {
-        int themostCalories = 0;
+//        int themostCalories = 0;
+//
+//        for (Workout workout : workouts) {
+//            if (workout.getCaloriesBurned() > themostCalories) {
+//                themostCalories = workout.getCaloriesBurned();
+//            }
+//        }
+        return workouts.stream()
+                .map(Workout::getCaloriesBurned)
+                .max(Integer::compare)
+                .orElse(0);
 
-        for (Workout workout : workouts) {
-            if (workout.getCaloriesBurned() > themostCalories) {
-                themostCalories = workout.getCaloriesBurned();
-            }
-        }
-        return themostCalories;
+//        return workouts.stream()
+//                .max(Comparator.comparing(Workout::getCaloriesBurned))
+//                .map(Workout::getCaloriesBurned)
+//                .orElse(0);
+
     }
 
     private static void printWorkouts(List<Workout> workouts){
@@ -37,21 +44,25 @@ public class Program {
     }
 
     private static double calculateAverageCaloriesBurned(List<Workout> workouts) {
-        int totalBurnedCalories = 0;
-        for(Workout workout : workouts){
-            totalBurnedCalories += workout.getCaloriesBurned();
-        }
-        return (double) totalBurnedCalories / workouts.size();
+//        int totalBurnedCalories = 0;
+//        for(Workout workout : workouts){
+//            totalBurnedCalories += workout.getCaloriesBurned();
+//        }
+        return workouts.stream()
+                .mapToDouble(Workout::getCaloriesBurned)
+                .sum();
     }
 
     private static List<Workout> getMatchingWorkouts(List<Workout> workouts, String workoutName) {
         List<Workout> matchingWorkouts = new ArrayList<>();
-        for(Workout workout : workouts){
-            if(workout.getExerciseType().equalsIgnoreCase(workoutName)){
-                matchingWorkouts.add(workout);
-            }
-        }
-        return matchingWorkouts;
+//        for(Workout workout : workouts){
+//            if(workout.getExerciseType().equalsIgnoreCase(workoutName)){
+//                matchingWorkouts.add(workout);
+//            }
+//        }
+        return workouts.stream()
+                .filter(w -> w.getExerciseType().equalsIgnoreCase(workoutName))
+                .toList();
     }
 
     private static List<Workout> getWorkouts() {
