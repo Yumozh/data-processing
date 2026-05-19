@@ -14,25 +14,22 @@ public class Program {
         String workoutName = scan.nextLine();
 
         List<Workout> matchingWorkouts = getMatchingWorkouts(workouts, workoutName);
-        System.out.println(calculateAverageCaloriesBurned(matchingWorkouts));
+        System.out.println("The average calories burned is: " + calculateAverageCaloriesBurned(matchingWorkouts));
+        System.out.println("The highest number of calories is: " + highestCalories(matchingWorkouts));
 
     }
 
-    private static List<Workout> getWorkouts() {
-        List<Workout> workouts = new ArrayList<>();
+    private static int highestCalories(List<Workout> workouts) {
+        int themostCalories = 0;
 
-        workouts.add(new Workout("Running", "Monday", 450));
-        workouts.add(new Workout("Yoga", "Monday", 180));
-        workouts.add(new Workout("Weightlifting", "Tuesday", 320));
-        workouts.add(new Workout("Cycling", "Wednesday", 500));
-        workouts.add(new Workout("Running", "Thursday", 400));
-        workouts.add(new Workout("Weightlifting", "Thursday", 300));
-        workouts.add(new Workout("Swimming", "Friday", 600));
-        workouts.add(new Workout("Yoga", "Saturday", 200));
-        workouts.add(new Workout("Cycling", "Sunday", 750));
-        workouts.add(new Workout("Running", "Sunday", 350));
-        return workouts;
+        for (Workout workout : workouts) {
+            if (workout.getCaloriesBurned() > themostCalories) {
+                themostCalories = workout.getCaloriesBurned();
+            }
+        }
+        return themostCalories;
     }
+
     private static void printWorkouts(List<Workout> workouts){
         for(Workout workout : workouts){
             System.out.println(workout);
@@ -51,9 +48,25 @@ public class Program {
         List<Workout> matchingWorkouts = new ArrayList<>();
         for(Workout workout : workouts){
             if(workout.getExerciseType().equalsIgnoreCase(workoutName)){
-            matchingWorkouts.add(workout);
+                matchingWorkouts.add(workout);
             }
         }
         return matchingWorkouts;
+    }
+
+    private static List<Workout> getWorkouts() {
+        List<Workout> workouts = new ArrayList<>();
+
+        workouts.add(new Workout("Running", "Monday", 450));
+        workouts.add(new Workout("Yoga", "Monday", 180));
+        workouts.add(new Workout("Weightlifting", "Tuesday", 320));
+        workouts.add(new Workout("Cycling", "Wednesday", 500));
+        workouts.add(new Workout("Running", "Thursday", 400));
+        workouts.add(new Workout("Weightlifting", "Thursday", 300));
+        workouts.add(new Workout("Swimming", "Friday", 600));
+        workouts.add(new Workout("Yoga", "Saturday", 200));
+        workouts.add(new Workout("Cycling", "Sunday", 750));
+        workouts.add(new Workout("Running", "Sunday", 350));
+        return workouts;
     }
 }
